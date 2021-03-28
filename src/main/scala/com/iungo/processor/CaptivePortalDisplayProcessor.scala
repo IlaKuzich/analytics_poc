@@ -9,9 +9,9 @@ import org.apache.spark.sql.{DataFrame, SaveMode, SparkSession}
 class CaptivePortalDisplayProcessor(sparkSession: SparkSession) {
   import sparkSession.implicits._
 
-  val jdbcUrl = spark.sparkContext.getConf.get("spark.postgres.url")
-  val jdbcUser = spark.sparkContext.getConf.get("spark.postgres.user")
-  val jdbcPassword = spark.sparkContext.getConf.get("spark.postgres.password")
+  private val jdbcUrl = spark.sparkContext.getConf.get("spark.postgres.url")
+  private val jdbcUser = spark.sparkContext.getConf.get("spark.postgres.user")
+  private val jdbcPassword = spark.sparkContext.getConf.get("spark.postgres.password")
 
   val connectionProperties = new Properties()
   connectionProperties.put("user", jdbcUser)
