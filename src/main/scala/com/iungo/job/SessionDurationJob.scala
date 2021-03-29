@@ -11,7 +11,7 @@ object SessionDurationJob extends App {
     .appName("AccessPointLoginJob")
     .getOrCreate()
 
-  val mongoFormattedDate = spark.sparkContext.getConf.get("start.readring.from")
+  val mongoFormattedDate = spark.sparkContext.getConf.get("spark.start.readring.from")
   val jdbcUrl = spark.sparkContext.getConf.get("spark.postgres.url")
 
   val connectionProperties = new Properties()
@@ -28,7 +28,7 @@ object SessionDurationJob extends App {
 
   val df = spark.sqlContext.read
     .option("pipeline", "[{ $match: { sessionStart: { $gt:  ISODate(\"" + mongoFormattedDate + "\") }}}, " +
-      "                   { $match: { mac: { $ne:   null}}}]")
+      "                   { $match: { sessionEnd: { $ne:   null}}}]")
     .option("spark.mongodb.input.collection", "sessionDuration")
     .format("com.mongodb.spark.sql.DefaultSource")
     .schema(schema)

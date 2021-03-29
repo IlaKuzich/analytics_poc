@@ -3,6 +3,7 @@ package com.iungo.job
 import java.util.Properties
 
 import com.iungo.job.CaptivePortalDisplayJob.spark
+import com.iungo.job.SessionDurationJob.spark
 import com.iungo.processor.AccessPointLoginProcessor
 import org.apache.spark.sql.{SaveMode, SparkSession}
 import org.apache.spark.sql.types._
@@ -12,7 +13,7 @@ object AccessPointLoginJob extends App {
     .appName("AccessPointLoginJob")
     .getOrCreate()
 
-  val mongoFormattedDate = spark.sparkContext.getConf.get("start.readring.from")
+  val mongoFormattedDate = spark.sparkContext.getConf.get("spark.start.readring.from")
   val jdbcUrl = spark.sparkContext.getConf.get("spark.postgres.url")
 
   val connectionProperties = new Properties()
